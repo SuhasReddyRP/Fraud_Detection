@@ -242,7 +242,7 @@ def transaction_page():
     # Function to send data to backend
     def send_to_backend(transaction_data):
         try:
-            response = requests.post("https://fraud-detection-mxdm.onrender.com/transaction_fraud_check", json=transaction_data)
+            response = requests.post("https://fraud-detection-5y8v.onrender.com/transaction_fraud_check", json=transaction_data)
             response.raise_for_status()
             result = response.json()
             return True, result
