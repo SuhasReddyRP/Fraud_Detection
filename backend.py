@@ -433,10 +433,20 @@ async def check_transaction_fraud(transaction: TransactionIn, db: Session = Depe
         # Step 2: Prepare data for prediction
         transaction_dict = {col.name: getattr(db_transaction, col.name) for col in Transaction.__table__.columns}
         transaction_df = pd.DataFrame([transaction_dict])
-
-        # Load model
-        with open(path, "rb") as model_file:
-            model = pickle.load(model_file)
+        import pickle
+        import streamlit as st
+         
+        # Load the model
+        model_path = "Model.pkl"  # Since it's in the same directory as app.py
+         
+        try:
+            with open(model_path, "rb") as file:
+                model = pickle.load(file)
+            st.success("Model loaded successfully!")
+        except FileNotFoundError:
+            st.error(f"Model file not found at: {model_path}")
+        except Exception as e:
+            st.error(f"Error loading model: {str(e)}")
 
         # Get expected features
         expected_features = model.feature_names_in_
