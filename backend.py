@@ -553,8 +553,9 @@ async def check_transaction_fraud(transaction: TransactionIn, db: Session = Depe
 
             shap_df = shap_df.sort_values(by='Percentage Contribution', ascending=False)
             top_features = shap_df[['Feature', 'Percentage Contribution']].to_dict(orient="records")
-            return{
-            "status": "success",
+            
+            return {
+                "status": "success",
                 "transaction_stored": True,
                 "transaction_id": transaction.TransactionID,
                 "Distance": engineered_features.get("Distance", 0.0),
