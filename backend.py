@@ -4,6 +4,7 @@ import pickle
 import subprocess
 import streamlit as st
 import plotly.graph_objects as go
+from fastapi.responses import FileResponse
 
 def install_and_run():
     # Function to install missing packages
@@ -124,7 +125,12 @@ class TransactionIn(BaseModel):
     Merchant_email: str
     DeviceType: str
     DeviceInfo: str
+
  
+@app.get("/download-db")
+def download_db():
+    return FileResponse("test.db", media_type="application/octet-stream", filename="test.db")
+
 # Helper function for DB session
 def get_db():
     db = SessionLocal()
